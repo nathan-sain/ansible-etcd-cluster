@@ -1,9 +1,25 @@
 # [member]
 ETCD_NAME="{{inventory_hostname}}"
 ETCD_DATA_DIR="{{etcd_cluster_data_dir}}"
+
+{% if etcd_snapshot_counter is defined %}
+ETCD_SNAPSHOT_COUNTER="{{ etcd_snapshot_counter }}"
+{% else %}
 #ETCD_SNAPSHOT_COUNTER="10000"
+{% endif %}
+
+{% if etcd_heartbeat_interval is defined %}
+ETCD_HEARTBEAT_INTERVAL="{{ etcd_heartbeat_interval }}"
+{% else %}
 #ETCD_HEARTBEAT_INTERVAL="100"
+{% endif %}
+
+{% if etcd_election_timeout is defined %}
+ETCD_ELECTION_TIMEOUT="{{ etcd_election_timeout }}"
+{% else %}
 #ETCD_ELECTION_TIMEOUT="1000"
+{% endif %}
+
 ETCD_LISTEN_CLIENT_URLS="{{etcd_scheme}}://localhost:2379,{{etcd_scheme}}://{{etcd_public_address}}:2379"
 #ETCD_MAX_SNAPSHOTS="5"
 #ETCD_MAX_WALS="5"
