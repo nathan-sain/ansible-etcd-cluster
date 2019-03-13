@@ -11,6 +11,9 @@ EnvironmentFile=-/etc/etcd/etcd.conf
 ExecStart=/bin/bash -c "GOMAXPROCS=$(nproc) {{etcd_install_dir}}/etcd"
 Restart=on-failure
 LimitNOFILE=65536
-
+{% if etcd_ionice is defined and etcd_ionice==True %}
+IOSchedulingClass=2
+IOSchedulingPriority=0
+{% endif %}
 [Install]
 WantedBy=multi-user.target
